@@ -24,6 +24,26 @@ user to navigate by entering the numbers that correspond
 to the directories in the list.  A better implementation
 might use the curses library.
 
+
+Instructions:
+1) run this script and enter numbers to select the directory that
+   you want to view.  Option 1 will typically go to the parent
+   directory.
+2) I hard-coded some shortcuts that are listed near the bottom
+   of the screen.  You can change those by editing this python
+   script.
+3) You can run a shell command from the currently-selected
+   directory by entering something like:
+   !ls -l
+   where the "!" is the code that the rest of the line is a shell
+   command.
+4) If you select option G for "goto," this program will attempt
+   to invoke a new shell and go to the selected directory.
+   this program will exit after you type "exit" in the new subshell
+   and you will return to the old shell prompt were you started
+   this python script.
+
+
 """
 #
 #
