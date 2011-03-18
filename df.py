@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/opt/local/bin/python
 #
 """
-df.py version 0.01 for python 2.6
+df.py version 0.02 for python 3+
 ##################################################################
 # This file is df.py = "directory freedom (imitation)".
 # df.py is free software: you can redistribute it and/or
@@ -21,9 +21,8 @@ df.py version 0.01 for python 2.6
 df.py is a "(pseudo) menu"-driven program that will list
 subdirectories in the current directory and allow the
 user to navigate by entering the numbers that correspond
-to the directories in the list.  A better implementation
-might use the curses library.
-
+to the directories in the list.  **A better implementation
+might use the curses library.**
 
 Instructions:
 1) run this script and enter numbers to select the directory that
@@ -42,12 +41,14 @@ Instructions:
    this program will exit after you type "exit" in the new subshell
    and you will return to the old shell prompt were you started
    this python script.
-
-
 """
 #
+# Change History:
+# version 0.01 was for python 2.6
+# version 0.02 includes minimal changes for python 3.1
 #
-import sys, os,re, subprocess, getopt, posix, pty
+import sys, os,re, subprocess, getopt, posix
+##import pty
 SHELL_PGM="/bin/bash"
 rptcols = 1
 MENU_ROW_CT = 4
@@ -66,7 +67,7 @@ def main():
 	try:
 		optlist, args = getopt.getopt(sys.argv[1:],
 			"hvi", ["help", "verbose", "include-dot-files"])
-	except getopt.GetoptError, err:
+	except getopt.GetoptError:
 		print(str(err))
 		usage()
 		sys.exit(12)
@@ -125,7 +126,7 @@ def get_and_list_files(b_include):
 	#
 	# Append numbers to the display text:
 	j = 1
-	results = filelist.split("\n")
+	results = filelist.decode('utf8').split("\n")
 	removevals = [" ", "\n", ""]
 	for s in removevals:
 		# remove a list entry if the full value
@@ -212,11 +213,11 @@ def list_dir(masterlist):
 		print("")
 			
 	print("    $ " + posix.getcwd())
-	print("D = Diss, E = eBooks, P = python, R, U = unix")
+	print("D = Diss, E = eBooks, T=gits, P = python, R, U = unix")
 	print("Q = quit, ~ = home, G = Goto dir, ! = Shell cmd")
 	# Do not convert the input to caps because I might enter
 	# the full shell command here
-	strnbr = raw_input("Enter a directory number: ")
+	strnbr = input("Enter a directory number: ")
 	if (strnbr.upper() == "Q"):
 		print("quitting")
 		sys.exit(0)
@@ -225,10 +226,13 @@ def list_dir(masterlist):
 		newdir = os.path.realpath(os.path.expanduser("~/"))
 		return(newdir)
 	elif (strnbr.upper() == "D"):
-		newdir = os.path.realpath(os.path.expanduser("/Volumes/D/Documents/Walden/PhD/Dissertation"))
+		newdir = os.path.realpath(os.path.expanduser("/PhD/Dissertation"))
 		return(newdir)
 	elif (strnbr.upper() == "E"):
 		newdir = os.path.realpath(os.path.expanduser("/Volumes/D/Documents/eBooks"))
+		return(newdir)
+	elif (strnbr.upper() == "T"):
+		newdir = os.path.realpath(os.path.expanduser("/Volumes/D/gits"))
 		return(newdir)
 	elif (strnbr.upper() == "P"):
 		newdir = os.path.realpath(os.path.expanduser("/py"))
@@ -242,16 +246,12 @@ def list_dir(masterlist):
 	elif (strnbr == "!" or strnbr[0]=="!"):
 		# Shell command
 		if(len(strnbr)==1):
-			cmdstr = raw_input("Enter your shell command: ")
+			cmdstr = input("Enter your shell command: ")
 		else:
 			cmdstr = strnbr[1:]
 		cmdlst = cmdstr.split(" ")	
-		## My stty command worked only in string mode
-		## not list mode for Popen:
-		#rslt = subprocess.Popen(cmdstr, 
-		#	stdout=subprocess.PIPE).communicate()[0]
 		os.system(cmdstr)
-		junk = raw_input("Press enter to continue")
+		junk = input("Press enter to continue")
 		newdir = posix.getcwd()
 		return(newdir)
 	elif (strnbr.upper() == "G"):

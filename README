@@ -1,3 +1,31 @@
+df.py is a simple directory navigator for UNIX (tested on Mac OS X)
+
+This program is a simplistic way to navigate directory trees by 
+selecting directory names from a list. The user can enter the number
+that is associated with a directory name in the list, then the
+program will list the directories in that location and allow for
+iterative choices.  The user can enter shell commands or use the
+"G" option to goto that directory in a fresh shell.
+
+The program is simplistic because this version uses the python
+"print" command to display a menu (it detects the screen height
+and scrolls blank lines to fill the screen if needed). I hope
+to convert this to uses the curses package.
+
+The name of the program "df" stands for "directory freedom," which
+is a program that I vaguely remember from about 15 years ago.  It
+was a DOS-based program that allowed the user to navigate directories
+quickly by selecint directories from a list.
+
+Installation:
+1) Copyt this single script to a directory that is in the execution
+path (like /usr/bin).
+2) Check the path to the python program in the first line of this
+script -- there is a good chance that you need to change it.
+3) I might hard-code some shortcuts to directories that I use 
+frequently, so you can edit this file to change them.  In the future,
+I might move those option to an option file that is read with getopt().
+
 Instructions:
 1) run this script and enter numbers to select the directory that
    you want to view.  Option 1 will typically go to the parent

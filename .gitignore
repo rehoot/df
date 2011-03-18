@@ -1,5 +1,8 @@
 *~
 .DS_Store
+.lesshst
+.gitconfig
+.viminfo
 .Trash
 .Trash*
 ._.DS_Store
