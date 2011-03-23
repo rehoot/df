@@ -1,0 +1,10 @@
+[options]
+language = Klingon
+
+[shortcuts]
+~ = /Users/rehoot
+D = /Volumes/D/Documents
+M = /Volumes/MACBACK
+S = /Volumes/SSD
+P = /Volumes/D/Documents/unix/python
+V = /Volumes/D

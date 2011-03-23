@@ -1,16 +1,15 @@
 df.py is a simple directory navigator for UNIX (tested on Mac OS X)
+This is in ALPHA test mode -- meaning that you should expect missing
+features or bugs.
 
-This program is a simplistic way to navigate directory trees by 
+This program is a way to navigate directory trees by 
 selecting directory names from a list. The user can enter the number
 that is associated with a directory name in the list, then the
 program will list the directories in that location and allow for
 iterative choices.  The user can enter shell commands or use the
-"G" option to goto that directory in a fresh shell.
-
-The program is simplistic because this version uses the python
-"print" command to display a menu (it detects the screen height
-and scrolls blank lines to fill the screen if needed). I hope
-to convert this to uses the curses package.
+"S" option to goto that directory in a fresh shell. The "O" option
+allows the user to open the given file if its file extension has
+an appropriate association with a program that can open it.
 
 The name of the program "df" stands for "directory freedom," which
 is a program that I vaguely remember from about 15 years ago.  It
@@ -18,29 +17,33 @@ was a DOS-based program that allowed the user to navigate directories
 quickly by selecint directories from a list.
 
 Installation:
-1) Copyt this single script to a directory that is in the execution
+1) Copy this single script to a directory that is in the execution
 path (like /usr/bin).
 2) Check the path to the python program in the first line of this
 script -- there is a good chance that you need to change it.
-3) I might hard-code some shortcuts to directories that I use 
-frequently, so you can edit this file to change them.  In the future,
-I might move those option to an option file that is read with getopt().
+3) Copy or review the .dfconfig file and create some shortcuts to
+go to directories that you use often.  An example file is
+
+[options]
+language = Klingon
+
+[shortcuts]
+~ = /Users/rehoot
+D = /Volumes/D/Documents
+M = /Volumes/MACBACK
+S = /Volumes/SSD
+P = /Volumes/D/Documents/unix/python
+V = /Volumes/D
+
 
 Instructions:
-1) run this script and enter numbers to select the directory that
+1) Run this script and enter numbers to select the directory that
    you want to view.  Option 1 will typically go to the parent
    directory.
-2) I hard-coded some shortcuts that are listed near the bottom
-   of the screen.  You can change those by editing this python
-   script.
-3) You can run a shell command from the currently-selected
-   directory by entering something like:
-   !ls -l
-   where the "!" is the code that the rest of the line is a shell
-   command.
-4) If you select option G for "goto," this program will attempt
+2) Press 'F' to open a list of favorites, then choose the shortcut
+   code to go to that directory.
+3) If you select option S this program will attempt
    to invoke a new shell and go to the selected directory.
    this program will exit after you type "exit" in the new subshell
-   and you will return to the old shell prompt were you started
-   this python script.
+   and you will return the df.py program.
 
